@@ -16,23 +16,90 @@
 </nav>
 
 <div class="main">
-    <div class="goals">
-        <div class="goal-catagory">
-            <h1 class="catagory-header">Upcoming</h1>
-            <div class="goal-panel">
+    <div class="statuses">
+        <div class="status-item">
+            <p class="status-text">You're happy!</p>
+        </div>
+        <div class="status-item">
+            <p class="status-text">You're happy!</p>
+        </div>
+        <div class="status-item">
+            <p class="status-text">You're happy!</p>
+        </div>
+    </div>
+        
+        
+    <div class="categories">
+        <div class="goal-category">
+            <h1 class="category-header">Upcoming</h1>
+            <div id="upcoming" class="goal-panel 0">
                 <h1 class="goal-header">Something</h1>
                 <p class="goal-description">Testing the description of this goal panel.</p>
+                <div class="arrows">
+                    <button class="arrow" onclick="leftArrow('upcoming')"><</button>
+                    <button class="arrow" onclick="rightArrow('upcoming')">></button>
+                </div>
             </div>
         </div>
-        <div class="goal-catagory">
-            <h1 class="catagory-header">Short Term</h1>
+        <div class="goal-category">
+            <h1 class="category-header">Overdue</h1>
         </div>
-        <div class="goal-catagory">
-            <h1 class="catagory-header">Long Term</h1>
+        <div class="goal-category">
+            <h1 class="category-header">Completed</h1>
         </div>
     </div>
 </div>
 
+<script>
+    const goals = {
+        upcoming: [{
+            header: "Something",
+            description: "Testing out the description for this panel!"
+        },
+        {
+            header: "Something Else",
+            description: "Testing out the description for this panel!"
+        }]
+    }
+
+    var currUpcoming = 0
+
+    function leftArrow(id) {
+        var selectedGoals = goals[id]
+        var panel = document.getElementById(id)
+        var index = parseInt(panel.classList[1])
+        if (!index) { return }
+        panel.classList.remove(index)
+        index--
+        panel.classList.add(index)
+        panel.innerHTML = `
+            <h1 class="goal-header">${selectedGoals[index].header}</h1>
+            <p class="goal-description">${selectedGoals[index].description}</p>
+            <div class="arrows">
+                <button class="arrow" onclick="leftArrow('upcoming')"><</button>
+                <button class="arrow" onclick="rightArrow('upcoming')">></button>
+            </div>
+        `
+    }
+
+    function rightArrow(id) {
+        var selectedGoals = goals[id]
+        var panel = document.getElementById(id)
+        var index = parseInt(panel.classList[1])
+        if (index >= selectedGoals.length - 1) { return }
+        panel.classList.remove(index)
+        index++
+        panel.classList.add(index)
+        panel.innerHTML = `
+            <h1 class="goal-header">${selectedGoals[index].header}</h1>
+            <p class="goal-description">${selectedGoals[index].description}</p>
+            <div class="arrows">
+                <button class="arrow" onclick="leftArrow('upcoming')"><</button>
+                <button class="arrow" onclick="rightArrow('upcoming')">></button>
+            </div>
+        `
+    }
+</script>
 
 </body>
 </html>
