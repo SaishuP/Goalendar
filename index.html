@@ -3,6 +3,7 @@
 <head>
 <title>Goalendar</title>
 <link rel="stylesheet" type="text/css" href="main.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="background-color:white;">
 <!-- <div class="vl"></div>
@@ -10,10 +11,16 @@
 <!-- <h1>Goalendar</h1> -->
 
 <nav class="nav">
-    <button class="nav-item" href="#calendar">Calendar</button>
-    <button class="nav-item">Goals</button>
-    <button class="nav-item">Stats</button>
+    <h2 class="nav-item-goalendar">Goalendar</h2>
+    <input class = "nav-item-searchbar" placeholder="Search for your goal" type="text" id="lname" name="lname" value=""><br><br>
+    <button class="btn"><i class="fa fa-plus"></i></button>
 </nav>
+<br>
+<div class ="tabs"> 
+    <h2 class = "tabs-calendar" style="padding-right: 3em;">Calendar</h2>
+    <h2 class = "goals-calendar"style="padding-right: 3em;">Achievements</h2>
+    <h2 class = "stats-calendar">Stats</h2>
+</div>
 
 <div class="main">
     <div class="statuses">
@@ -36,7 +43,7 @@
                 <h1 class="goal-header">Something</h1>
                 <p class="goal-description">Testing the description of this goal panel.</p>
                 <div class="arrows">
-                    <button class="arrow" onclick="leftArrow('upcoming')"><</button>
+                    <button class="arrow" onclick="leftArrow('upcoming')"></button>
                     <button class="arrow" onclick="rightArrow('upcoming')">></button>
                 </div>
             </div>
