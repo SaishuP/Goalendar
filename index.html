@@ -13,7 +13,7 @@
 <nav class="nav">
     <h2 class="nav-item-goalendar">Goalendar</h2>
     <input class = "nav-item-searchbar" placeholder="Search for your goal" type="text" id="lname" name="lname" value=""><br><br>
-    <button class="btn"><i class="fa fa-plus"></i></button>
+    <button class="btn"><i class="fa fa-plus" onClick="goalButton()"></i></button>
 </nav>
 <br>
 <div class ="tabs"> 
@@ -40,11 +40,11 @@
         <div class="goal-category">
             <h1 class="category-header">Upcoming</h1>
             <div id="upcoming" class="goal-panel 0">
-                <h1 class="goal-header">Something</h1>
-                <p class="goal-description">Testing the description of this goal panel.</p>
+                <h1 class="goal-header" id="goal-header">No upcoming goals!</h1>
+                <p class="goal-description" id="goal-description"></p>
                 <div class="arrows">
-                    <button class="arrow" onclick="leftArrow('upcoming')"></button>
-                    <button class="arrow" onclick="rightArrow('upcoming')">></button>
+                    <button class="arrow" onclick="left()">&lt;</button>
+                    <button class="arrow" onclick="right()">&gt;</button>
                 </div>
             </div>
         </div>
@@ -58,54 +58,39 @@
 </div>
 
 <script>
-    const goals = {
-        upcoming: [{
-            header: "Something",
-            description: "Testing out the description for this panel!"
-        },
-        {
-            header: "Something Else",
-            description: "Testing out the description for this panel!"
-        }]
-    }
-
-    var currUpcoming = 0
-
-    function leftArrow(id) {
-        var selectedGoals = goals[id]
-        var panel = document.getElementById(id)
-        var index = parseInt(panel.classList[1])
-        if (!index) { return }
-        panel.classList.remove(index)
-        index--
-        panel.classList.add(index)
-        panel.innerHTML = `
-            <h1 class="goal-header">${selectedGoals[index].header}</h1>
-            <p class="goal-description">${selectedGoals[index].description}</p>
-            <div class="arrows">
-                <button class="arrow" onclick="leftArrow('upcoming')"><</button>
-                <button class="arrow" onclick="rightArrow('upcoming')">></button>
-            </div>
-        `
-    }
-
-    function rightArrow(id) {
-        var selectedGoals = goals[id]
-        var panel = document.getElementById(id)
-        var index = parseInt(panel.classList[1])
-        if (index >= selectedGoals.length - 1) { return }
-        panel.classList.remove(index)
-        index++
-        panel.classList.add(index)
-        panel.innerHTML = `
-            <h1 class="goal-header">${selectedGoals[index].header}</h1>
-            <p class="goal-description">${selectedGoals[index].description}</p>
-            <div class="arrows">
-                <button class="arrow" onclick="leftArrow('upcoming')"><</button>
-                <button class="arrow" onclick="rightArrow('upcoming')">></button>
-            </div>
-        `
-    }
+	const stored_goals = JSON.parse(localStorage.getItem('goals')) || [];
+	const goals = stored_goals.filter(function (goal) {
+		return !goal.complete;
+	}) || [];
+	const overdue = stored_goals.filter(function (goal) {
+		return !goal.complete;
+	}) || [];
+	let goals_index = 0;
+	let overdue_index = 0;
+	showGoal(0);
+	function left() {
+		showGoal((goals_index-1)%goals.length)
+	}
+	function right() {
+		showGoal((goals_index+1)%goals.length)
+	}
+	function showGoal(n) {
+		goals_index = n;
+		document.getElementById('goal-header').innerHTML = goals[n].title;
+		document.getElementById('goal-description').innerHTML = goals[n].desc;
+	}
+	function addGoal(title, desc) {
+		goals.push({title, desc, complete: false});
+		localStorage.setItem('goals', JSON.stringify(goals));
+		showGoal(goals.length-1);
+	}
+	function goalButton() {
+		let title = prompt("What is your goal?")
+		let desc = prompt("Input a brief description of your goal:")
+		if (title && desc) {
+			addGoal(title, desc)
+		}
+	}
 </script>
 
 </body>
