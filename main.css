@@ -1,0 +1,38 @@
+h1{
+    margin-left:20%;
+    color: black;
+    
+}
+.html{
+    margin:0;
+}
+.vl {
+    border-left: 7px solid #1E2021;
+    height: 100%;
+    position: absolute;
+    margin-left:15%;
+    margin-bottom:0;
+  }
+.hl{
+    background-color: #1E2021;
+    margin-top:5%;
+    margin-left:15%;
+    width: 100%;
+    position:absolute;
+    height: 7px;
+    line-height: 80%;
+}
+.achievementBox{
+    margin-left:5%;
+    margin-top:10%;
+    width:20%;
+    height:100px;
+    border:2.5px solid #000;
+    border-radius: 20px;
+    display: inline-block;
+}
+.parent{
+    margin-left:17.5%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
